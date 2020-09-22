@@ -1,15 +1,17 @@
 package com.library.digitallibrary;
 
+
 public class UserHelperClass {
 
-    public String username,email;
+    public String username,email,password;
+    public UserHelperClass(){
 
-    public UserHelperClass() {
     }
 
-    public UserHelperClass(String username, String email) {
+    public UserHelperClass(String username, String email, String password) {
         this.username = username;
         this.email = email;
+        this.password = password;
     }
 
     public String getUsername() {
@@ -28,4 +30,11 @@ public class UserHelperClass {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

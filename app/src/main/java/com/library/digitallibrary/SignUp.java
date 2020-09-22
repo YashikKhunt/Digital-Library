@@ -16,7 +16,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -29,10 +28,7 @@ public class SignUp extends AppCompatActivity {
     // Write a message to the database
     FirebaseDatabase database;
     DatabaseReference myRef;
-
-    String databaseUrl = "https://digital-library-5dad1.firebaseio.com/";
-    //authenticate email and password with firebase authentication
-    private FirebaseAuth mAuth;
+    String databaseUrl = "https://digital-library-290309.firebaseio.com/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +43,6 @@ public class SignUp extends AppCompatActivity {
         regSignUp = findViewById(R.id.reg_sign_up);
         regToLoginBtn = findViewById(R.id.reg_signUp_to_LogIn);
 
-        mAuth = FirebaseAuth.getInstance();
 
         //save data into the firebase on signUp button click and Authentication using Email and password
         regSignUp.setOnClickListener(new View.OnClickListener() {
@@ -69,37 +64,13 @@ public class SignUp extends AppCompatActivity {
                 final String email = regEmail.getEditText().getText().toString();
                 String password = regPassword.getEditText().getText().toString();
 
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-
-
-
-
-
-
-                                } else {
-                                    Toast.makeText(SignUp.this,"SucccessFull",Toast.LENGTH_SHORT).show();
-
-                                    UserHelperClass helperClass = new UserHelperClass(username, email);
-                                    myRef.child(username).setValue(helperClass);
-
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    Intent intent = new Intent(SignUp.this, Login.class);
-                                    startActivity(intent);
-
-                                }
-                            }
-
-
-                        });
-
-
-                UserHelperClass helperClass = new UserHelperClass(username, email);
+                UserHelperClass helperClass = new UserHelperClass(username, email, password);
                 myRef.child(username).setValue(helperClass);
 
+                Toast.makeText(SignUp.this, "Registration Successfull", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(SignUp.this,Home.class);
+                startActivity(intent);
+                finish();
 
             }
         });
