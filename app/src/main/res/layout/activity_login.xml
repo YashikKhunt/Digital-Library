@@ -110,16 +110,6 @@
                 android:textColor="#000"
                 android:transitionName="login_signup_trans" />
 
-            <Button
-                android:id="@+id/google_sigin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Sign In with Google"
-                android:layout_margin="5dp"
-                android:background="#00000000"
-                android:drawableLeft="@drawable/google"
-                android:paddingLeft="20dp"
-                android:drawablePadding="2dp"/>
 
         </LinearLayout>
     </LinearLayout>

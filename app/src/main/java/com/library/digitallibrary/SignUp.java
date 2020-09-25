@@ -60,15 +60,16 @@ public class SignUp extends AppCompatActivity {
 
 
                 //get all the values
-                final String username = regUsername.getEditText().getText().toString();
-                final String email = regEmail.getEditText().getText().toString();
+                String username = regUsername.getEditText().getText().toString();
+                String email = regEmail.getEditText().getText().toString();
                 String password = regPassword.getEditText().getText().toString();
 
                 UserHelperClass helperClass = new UserHelperClass(username, email, password);
                 myRef.child(username).setValue(helperClass);
 
                 Toast.makeText(SignUp.this, "Registration Successfull", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(SignUp.this,Home.class);
+                Intent intent = new Intent(SignUp.this,Login.class);
+
                 startActivity(intent);
                 finish();
 
