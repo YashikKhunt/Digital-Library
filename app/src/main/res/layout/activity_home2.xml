@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Home"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/home_username"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="Hello User"
+            android:textSize="26sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/bungee" />
+
+        <Button
+            android:id="@+id/home_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Logout"
+            android:layout_gravity="center"
+            android:background="#00000000"
+            android:elevation="0dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/home_email"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="abcxyz@example.com"
+            android:textSize="16sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/antic"/>
+
+        <Button
+            android:id="@+id/home_scan_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scan"
+            android:background="#00000000" />
+
+        <ImageButton
+            android:id="@+id/home_scan_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/barcode_scanner_icon"
+            android:layout_gravity="center"
+            android:layout_marginLeft="-20dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <Button
+            android:id="@+id/home_available_book"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Available Books"
+            android:background="#00000000"
+            android:elevation="0dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/home_issue_book"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Issue Books"
+            android:background="#00000000"
+            android:elevation="0dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/home_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"/>
+
+
+</LinearLayout>

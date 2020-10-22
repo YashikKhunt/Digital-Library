@@ -43,9 +43,6 @@ public class Login extends AppCompatActivity {
     ImageView logo_image;
     TextView logo_name,slogan_name;
     TextInputLayout username,Password;
-    private GoogleSignInClient mGoogleSignInClient;
-    private final static int RC_SIGN_IN = 123;
-    private FirebaseAuth mAuth;
 
     String databaseUrl = "https://digital-library-290309.firebaseio.com/";
 
@@ -65,8 +62,6 @@ public class Login extends AppCompatActivity {
         username = findViewById(R.id.username);
         Password = findViewById(R.id.password);
 
-
-        mAuth = FirebaseAuth.getInstance();
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +86,12 @@ public class Login extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isUser();
+                if(!validateUsername() | !validatePassword()){
+                    return;
+                }
+                else{
+                    isUser();
+                }
             }
         });
 
