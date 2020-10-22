@@ -85,10 +85,10 @@ public class Home extends AppCompatActivity {
             }
         });
         //display username and email
-        Intent intent = getIntent();
-        String username = intent.getStringExtra("username");
+        final Intent intent = getIntent();
+        final String username = intent.getStringExtra("username");
         String email = intent.getStringExtra("email");
-        Toast.makeText(getApplicationContext(),username+" "+email,Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(),username+" "+email,Toast.LENGTH_SHORT).show();
         home_username.setText(username);
         home_email.setText(email);
 
@@ -98,6 +98,24 @@ public class Home extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Home.this,Login.class);
                 startActivity(intent);
+            }
+        });
+
+        //Scanner button anc img called
+        home_scan_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(Home.this,Codescanner.class);
+                intent.putExtra("username",username);
+                startActivity(intent1);
+            }
+        });
+
+        home_scan_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent(Home.this,Codescanner.class);
+                startActivity(intent2);
             }
         });
 
