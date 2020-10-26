@@ -115,6 +115,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent2 = new Intent(Home.this,Codescanner.class);
+                intent.putExtra("username",username);
                 startActivity(intent2);
             }
         });
