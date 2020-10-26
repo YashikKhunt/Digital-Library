@@ -26,7 +26,7 @@ public class Codescanner extends AppCompatActivity implements ZXingScannerView.R
 
     // Write a message to the database
     FirebaseDatabase database;
-    DatabaseReference rootmyRef,activeref;
+    DatabaseReference rootmyRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class Codescanner extends AppCompatActivity implements ZXingScannerView.R
     public void handleResult(final Result result) {
         AlertDialog.Builder dialog=new AlertDialog.Builder(this);
         dialog.setMessage(result.getText());
-        dialog.setTitle("please Confirm");
+        dialog.setTitle("Book Name");
         dialog.setPositiveButton("Ok",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,
@@ -53,16 +53,19 @@ public class Codescanner extends AppCompatActivity implements ZXingScannerView.R
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if (snapshot.exists()){
-                                    String finalbookName = snapshot.child(scan_book_name).child("Name").getValue(String.class);
+                                    final String finalbookName = snapshot.child(scan_book_name).child("Name").getValue(String.class);
                                     Intent intent = getIntent();
                                     final String username = intent.getStringExtra("username");
-                                    database = FirebaseDatabase.getInstance(databaseUrl);
-                                    rootmyRef = database.getReference("users");
-                                    activeref = rootmyRef.child(username);
-                                    BookClass bookClass = new BookClass(finalbookName);
-                                    activeref.child(finalbookName).setValue(bookClass);
 
-                                    Toast.makeText(Codescanner.this, finalbookName, Toast.LENGTH_SHORT).show();
+                                    //to store book name into Firebase database
+                                    database = FirebaseDatabase.getInstance(databaseUrl);
+                                    rootmyRef = database.getReference("Issue_Books");
+
+                                    //Adding into BookClass.java
+                                    BookClass bookClass = new BookClass(username, finalbookName);
+                                    rootmyRef.child(finalbookName).push().setValue(bookClass);
+
+                                    Toast.makeText(Codescanner.this, "Successful", Toast.LENGTH_SHORT).show();
                                 }
                             }
 
@@ -82,6 +85,9 @@ public class Codescanner extends AppCompatActivity implements ZXingScannerView.R
         });
         AlertDialog alertDialog=dialog.create();
         alertDialog.show();
+        Intent return_intent = new Intent(Codescanner.this,Home.class);
+        startActivity(return_intent);
+
     }
 
     @Override
