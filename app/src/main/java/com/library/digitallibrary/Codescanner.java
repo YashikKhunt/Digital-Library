@@ -85,9 +85,6 @@ public class Codescanner extends AppCompatActivity implements ZXingScannerView.R
         });
         AlertDialog alertDialog=dialog.create();
         alertDialog.show();
-        Intent return_intent = new Intent(Codescanner.this,Home.class);
-        startActivity(return_intent);
-
     }
 
     @Override

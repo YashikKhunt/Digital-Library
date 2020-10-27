@@ -44,7 +44,7 @@ public class Home extends AppCompatActivity {
         home_logout = findViewById(R.id.home_logout);
         home_scan_btn = findViewById(R.id.home_scan_btn);
         home_available_book = findViewById(R.id.home_available_book);
-        home_issue_book = findViewById(R.id.home_issue_book);
+        //home_issue_book = findViewById(R.id.home_issue_book);
         home_scan_img = findViewById(R.id.home_scan_img);
         home_listview = findViewById(R.id.home_listview);
 
@@ -87,10 +87,23 @@ public class Home extends AppCompatActivity {
         //display username and email
         final Intent intent = getIntent();
         final String username = intent.getStringExtra("username");
-        String email = intent.getStringExtra("email");
+        final String email = intent.getStringExtra("email");
 //        Toast.makeText(getApplicationContext(),username+" "+email,Toast.LENGTH_SHORT).show();
         home_username.setText(username);
         home_email.setText(email);
+
+        //Profile Section
+        home_username.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String prof_username = home_username.getText().toString();
+                String prof_email = home_email.getText().toString();
+                Intent i = new Intent(Home.this,Profile.class);
+                i.putExtra("username",prof_username);
+                i.putExtra("email",prof_email);
+                startActivity(i);
+            }
+        });
 
         //Logout Function
         home_logout.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +132,9 @@ public class Home extends AppCompatActivity {
                 startActivity(intent2);
             }
         });
+
+        //Profile section
+
 
     }
 }

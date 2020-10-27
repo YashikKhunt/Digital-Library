@@ -80,14 +80,14 @@
             android:elevation="0dp"
             android:layout_weight="1"/>
 
-        <Button
-            android:id="@+id/home_issue_book"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Issue Books"
-            android:background="#00000000"
-            android:elevation="0dp"
-            android:layout_weight="1"/>
+<!--        <Button-->
+<!--            android:id="@+id/home_issue_book"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Pofile"-->
+<!--            android:background="#00000000"-->
+<!--            android:elevation="0dp"-->
+<!--            android:layout_weight="1"/>-->
 
     </LinearLayout>
 
