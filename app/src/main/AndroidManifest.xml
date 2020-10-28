@@ -28,6 +28,12 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        
+        <receiver android:name=".AlarmReciver">
+                <intent-filter>
+                    <action android:name=""/>
+                </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

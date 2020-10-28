@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +18,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.Result;
+
+import java.util.Calendar;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -75,6 +79,16 @@ public class Codescanner extends AppCompatActivity implements ZXingScannerView.R
                             }
                         });
                         Toast.makeText(getApplicationContext(),"Issued Successfull",Toast.LENGTH_LONG).show();
+
+
+                        //Notification manager after book Issed
+                        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.add(Calendar.MINUTE,5);
+
+                        Intent intent1 = new Intent()
+                        PendingIntent.getBroadcast(Codescanner.this, 100, intent1,PendingIntent.FLAG_UPDATE_CURRENT)
+                        alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),);
                     }
                 });
         dialog.setNegativeButton("cancel",new DialogInterface.OnClickListener() {
