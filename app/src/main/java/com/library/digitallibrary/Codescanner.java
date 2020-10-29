@@ -1,13 +1,17 @@
 package com.library.digitallibrary;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -19,6 +23,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.Result;
 
+import java.text.ParseException;
 import java.util.Calendar;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -37,7 +42,7 @@ public class Codescanner extends AppCompatActivity implements ZXingScannerView.R
         super.onCreate(savedInstanceState);
         scannerView = new ZXingScannerView(Codescanner.this);
         setContentView(scannerView);
-
+        createNotificationChannel();
 
     }
 
@@ -48,6 +53,7 @@ public class Codescanner extends AppCompatActivity implements ZXingScannerView.R
         dialog.setTitle("Book Name");
         dialog.setPositiveButton("Ok",
                 new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                     public void onClick(DialogInterface dialog,
                                         int which) {
                         final String scan_book_name = result.getText();
@@ -82,13 +88,15 @@ public class Codescanner extends AppCompatActivity implements ZXingScannerView.R
 
 
                         //Notification manager after book Issed
-                        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.add(Calendar.MINUTE,5);
+                        Intent intent = new Intent(Codescanner.this,ReminderNotification.class);
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(Codescanner.this, 0, intent, 0);
 
-                        Intent intent1 = new Intent()
-                        PendingIntent.getBroadcast(Codescanner.this, 100, intent1,PendingIntent.FLAG_UPDATE_CURRENT)
-                        alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),);
+                        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                        long timeAtscanning = System.currentTimeMillis();
+                        long seconds = 1000*10;
+                        alarmManager.set(AlarmManager.RTC_WAKEUP,
+                                timeAtscanning+seconds,
+                                pendingIntent);
                     }
                 });
         dialog.setNegativeButton("cancel",new DialogInterface.OnClickListener() {
@@ -112,5 +120,18 @@ public class Codescanner extends AppCompatActivity implements ZXingScannerView.R
         super.onResume();
         scannerView.setResultHandler(Codescanner.this);
         scannerView.startCamera();
+    }
+
+    private void createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "DigitalLibraryReminder";
+            String description = "Regarding Book return";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("notifyme", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }
